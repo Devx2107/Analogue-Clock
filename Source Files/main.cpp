@@ -6,6 +6,56 @@
 
 int main()
 {
+	int gm = DETECT, gd;
+	
+	initgraph(&gm, &gd, (char *)"");
+	cleardevice();
+	
+	system("pause");
+	system("cls");
+	
+	Point Center;
+	char Ans;
+	
+	Center.X = (getmaxx() / 2);
+	Center.Y = (getmaxy() / 2);
+	
+	Center.Y -= 75;
+	
+	DrawClock(Center, 1);
+	
+	if(Start())
+	{
+		printf("\n");
+		printf("\tGreat User ! Press Any Key Any Time To Pause The Clock !\n");
+		
+		LiveClock(Center, Initiate(), DrawHands (Center, Initiate()));
+		
+		printf("\n");
+		printf("\tDo You Want To Continue With Custom Time? (Y/N) --> ");
+		scanf(" %c", &Ans);
+		
+		if(toupper(Ans) != 'Y')
+		{
+		    fflush(stdin);
+			printf("\n");
+		    
+		    printf("\tGood Bye User ! ");
+		    system("pause");
+		    
+			return 0;
+	    }
+	}
+	
+	closegraph();
+	fflush(stdin);
+	
+	initgraph(&gm, &gd, (char *)"");
+	cleardevice();
+	
+	DrawClock(Center, 2);
+	system("cls");
+	
 	printf("\n\t");
 	printf("!..... Analogue Clock..... !");
 	
@@ -43,17 +93,10 @@ int main()
 		IfInvalidFormate (&Formate);
 	}
 	
-	int gm = DETECT, gd;
+	printf("\n");
+	printf("\tGreat User ! Press Any Key Any Time To Close The Program !\n");
 	
-	initgraph(&gm, &gd, (char *)"");
-	cleardevice();
-	
-	Point Center;
-	
-	Center.X = (getmaxx() / 2);
-	Center.Y = (getmaxy() / 2);
-
-	LiveClock(Center, T, DrawClock(Center, T));
+	LiveClock(Center, T, DrawHands (Center, T));
 	
 	getch();
 	closegraph();

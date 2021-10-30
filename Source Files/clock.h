@@ -3,6 +3,7 @@
 
 
 #include <graphics.h>
+#include <time.h>
 
 
 Point RotatePoint (Point Rotation, Point Center, double Radian)
@@ -13,6 +14,70 @@ Point RotatePoint (Point Rotation, Point Center, double Radian)
 	RotatedPoint.Y = (float)(Center.Y + ((Rotation.X - Center.X) * sin(Radian) + (Rotation.Y - Center.Y) * cos(Radian)));
 	
 	return RotatedPoint;
+}
+
+
+void DrawClock (Point Center, int Call)
+{
+	setcolor(CYAN);
+	setfillstyle(SOLID_FILL, CYAN);
+	pieslice(Center.X, Center.Y, 0, 360, 155);
+	
+	setcolor(BLACK);
+	setfillstyle(SOLID_FILL, BLACK);
+	pieslice(Center.X, Center.Y, 0, 360, 150);
+	
+	Point Rotation;
+	
+	Rotation.X = Center.X;
+	Rotation.Y = (Center.Y - 145);
+	
+	double angle = 6, Radian;
+	Radian = (angle * 0.01745);
+	
+	for(int i = 1; i <= 60; i++)
+	{
+		setcolor(WHITE);
+		line(Center.X, Center.Y, Rotation.X, Rotation.Y);
+
+		Rotation = RotatePoint(Rotation, Center, Radian);
+		
+		setcolor(BLACK);
+		setfillstyle(SOLID_FILL, BLACK);
+		pieslice(Center.X, Center.Y, 0, 360, 130);
+		
+		if(Call == 1)
+		{
+			delay(50);
+		}
+	}
+	
+	angle = 30;
+	Radian = (angle * 0.01745);
+	
+	for(int i = 1; i <= 12; i++)
+	{
+		setcolor(CYAN);
+		setlinestyle(SOLID_LINE, 0, 2);
+		line(Center.X, Center.Y, Rotation.X, Rotation.Y);
+
+		Rotation = RotatePoint(Rotation, Center, Radian);
+		
+		setcolor(BLACK);
+		setfillstyle(SOLID_FILL, BLACK);
+		pieslice(Center.X, Center.Y, 0, 360, 115);
+		
+		if(Call == 1)
+		{
+			delay(100);
+		}
+	}
+	
+	setcolor(WHITE);
+	setfillstyle(SOLID_FILL, WHITE);
+	pieslice(Center.X, Center.Y, 0, 360, 2);
+	
+	return;
 }
 
 
@@ -50,6 +115,24 @@ void DigitalClock (Time T)
 	moveto(320, 375);
 	
 	outtext(DigitalTime);
+}
+
+
+Time Initiate ()
+{
+	time_t t;
+    struct tm* CurrentTime;
+
+    t = time(NULL);
+    CurrentTime = localtime(&t);
+    
+    Time T;
+    
+    T.Hour = CurrentTime->tm_hour;
+    T.Minute = CurrentTime->tm_min;
+    T.Second = CurrentTime->tm_sec;
+  
+    return T;
 }
 
 
@@ -95,70 +178,6 @@ Hand DrawHands (Point Center, Time T)
 	line(Center.X, Center.Y, ClockHands.SecondHand.X, ClockHands.SecondHand.Y);
 	
 	DigitalClock(T);
-}
-
-
-Hand DrawClock (Point Center, Time T)
-{	
-	Center.Y -= 75;
-	
-	setcolor(CYAN);
-	setfillstyle(SOLID_FILL, CYAN);
-	pieslice(Center.X, Center.Y, 0, 360, 155);
-	
-	setcolor(BLACK);
-	setfillstyle(SOLID_FILL, BLACK);
-	pieslice(Center.X, Center.Y, 0, 360, 150);
-	
-	Point Rotation;
-	
-	Rotation.X = Center.X;
-	Rotation.Y = (Center.Y - 145);
-	
-	double angle = 6, Radian;
-	Radian = (angle * 0.01745);
-	
-	for(int i = 1; i <= 60; i++)
-	{
-		setcolor(WHITE);
-		line(Center.X, Center.Y, Rotation.X, Rotation.Y);
-
-		Rotation = RotatePoint(Rotation, Center, Radian);
-		
-		setcolor(BLACK);
-		setfillstyle(SOLID_FILL, BLACK);
-		pieslice(Center.X, Center.Y, 0, 360, 130);
-		
-		delay(50);
-	}
-	
-	angle = 30;
-	Radian = (angle * 0.01745);
-	
-	for(int i = 1; i <= 12; i++)
-	{
-		setcolor(CYAN);
-		setlinestyle(SOLID_LINE, 0, 2);
-		line(Center.X, Center.Y, Rotation.X, Rotation.Y);
-
-		Rotation = RotatePoint(Rotation, Center, Radian);
-		
-		setcolor(BLACK);
-		setfillstyle(SOLID_FILL, BLACK);
-		pieslice(Center.X, Center.Y, 0, 360, 115);
-		
-		delay(100);
-	}
-	
-	Hand ClockHands = DrawHands (Center, T);
-	
-	setcolor(WHITE);
-	setfillstyle(SOLID_FILL, WHITE);
-	pieslice(Center.X, Center.Y, 0, 360, 2);
-	
-	delay(1000);
-	
-	return ClockHands;
 }
 
 
@@ -220,8 +239,8 @@ Time UpdateTime (Time T)
 
 
 void LiveClock (Point Center, Time T, Hand ClockHands)
-{
-	Center.Y -= 75;
+{	
+	fflush(stdin);
 	
 	while(!kbhit())
 	{

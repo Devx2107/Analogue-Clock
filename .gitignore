@@ -1,2 +1,3 @@
+*.layout
 *.win
 Source Files/*.o

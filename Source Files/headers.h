@@ -6,6 +6,8 @@
 #include <graphics.h>
 #include <conio.h>
 #include <math.h>
+#include <string.h>
+#include <ctype.h>
 #include <windows.h>
 #include <dos.h>
 

@@ -31,4 +31,11 @@ typedef enum Day
 }Day;
 
 
+typedef enum Choice
+{
+	N,
+	Y
+}Choice;
+
+
 #endif

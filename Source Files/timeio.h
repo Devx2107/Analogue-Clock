@@ -1,8 +1,47 @@
-#ifndef TIMEINPUT_H
-#define TIMEINPUT_H
+#ifndef TIMEIO_H
+#define TIMEIO_H
 
 
 #include <stdio.h>
+#include <ctype.h>
+
+
+Choice Start ()
+{
+	Time T;
+	Choice Ch;
+	char Ans;
+	
+	T = Initiate();
+	
+	printf("\n\t");
+	printf("!..... Analogue Clock..... !");
+	
+	printf("\n\n");
+	
+	printf("\tWelcome User !\n");
+	printf("\n");
+	
+	printf("\tDo You Want To Continue With System Time? (Y/N) --> ");
+	scanf(" %c", &Ans);
+	
+	if(toupper(Ans) == 'Y')
+	{
+		fflush(stdin);
+		
+		printf("\n\tCurrent Time: %02d:%02d:%02d\n", T.Hour, T.Minute, T.Second);
+		printf("\n");
+	
+		Ch = Y;
+	}
+	else
+	{
+		fflush(stdin);
+		Ch = N;
+	}
+	
+	return Ch;
+}
 
 
 void GetFormate (int* Formate)
