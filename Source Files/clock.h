@@ -81,7 +81,24 @@ void DrawClock (Point Center, int Call)
 }
 
 
-void DigitalClock (Time T)
+int SwapPeriod (int Period)
+{
+	if(Period == 1)
+	{
+		return 2;
+	}
+	else if(Period == 2)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+
+void DigitalClock (Time T, int Period)
 {
     char DigitalHour[5] = {'\0'};
     char DigitalMinute[5] = {'\0'};
@@ -89,15 +106,7 @@ void DigitalClock (Time T)
     
     char DigitalTime[20] = {'\0'};
 	
-	if(!T.Hour)
-	{
-		sprintf(DigitalHour, "%02d", 12);
-	}
-	else
-	{
-		sprintf(DigitalHour, "%02d", (T.Hour));
-	}
-	
+	sprintf(DigitalHour, "%02d", (T.Hour));	
 	sprintf(DigitalMinute, "%02d", (T.Minute));
 	sprintf(DigitalSecond, "%02d", (T.Second));
 	
@@ -106,7 +115,17 @@ void DigitalClock (Time T)
 	strcat(DigitalTime, DigitalMinute);
 	strcat(DigitalTime, ":");
 	strcat(DigitalTime, DigitalSecond);
-	
+	strcat(DigitalTime, " ");
+
+	if(Period == 1)
+	{
+	    strcat(DigitalTime, "AM");
+	}
+	else if(Period == 2)
+	{
+	    strcat(DigitalTime, "PM");
+	}
+	 	
 	setcolor(WHITE);
 	rectangle(100, 3, 540, 475);
 	
@@ -136,7 +155,7 @@ Time Initiate ()
 }
 
 
-Hand DrawHands (Point Center, Time T)
+Hand DrawHands (Point Center, Time T, int Period)
 {	
 	Hand ClockHands;
 	double angle, Radian;
@@ -177,7 +196,7 @@ Hand DrawHands (Point Center, Time T)
 	setlinestyle(SOLID_LINE, 0, 1);
 	line(Center.X, Center.Y, ClockHands.SecondHand.X, ClockHands.SecondHand.Y);
 	
-	DigitalClock(T);
+	DigitalClock(T, Period);
 }
 
 
@@ -224,29 +243,56 @@ void EraseHands (Point Center, Time T)
 }
 
 
-Time UpdateTime (Time T)
+Time UpdateTime (Time T, int Formate, int *Period)
 {
-	T.Second += 1;
-	T.Minute += (T.Second / 60);
-	T.Hour += (T.Minute / 60);
+	if(Formate == 1)
+	{
+		T.Second += 1;
+		T.Minute += (T.Second / 60);
+		T.Hour += (T.Minute / 60);
 	
-	T.Second %= 60;
-	T.Minute %= 60;
-	T.Hour %= 12;
+		T.Second %= 60;
+		T.Minute %= 60;
+		T.Hour %= 24;
+	}
+	else
+	{
+		T.Second += 1;
+		T.Minute += (T.Second / 60);
+		T.Hour += (T.Minute / 60);
+	
+		T.Second %= 60;
+		T.Minute %= 60;
+		
+		if(T.Hour != 12)
+		{
+			T.Hour %= 12;
+		}
+		
+		if(!T.Hour)
+		{
+			T.Hour = 12;
+		}
+		
+		if((T.Hour == 12) && (T.Minute == 0) && (T.Second == 0))
+		{
+			*Period = SwapPeriod(*Period);
+		}
+	}
 	
 	return T;
 }
 
 
-void LiveClock (Point Center, Time T, Hand ClockHands)
+void LiveClock (Point Center, Time T, Hand ClockHands, int Formate, int *Period)
 {	
 	fflush(stdin);
 	
 	while(!kbhit())
 	{
 		EraseHands(Center, T);
-		T = UpdateTime (T);
-		DrawHands(Center, T);
+		T = UpdateTime (T, Formate, Period);
+		DrawHands(Center, T, *Period);
 		delay(1000);
 	}
 }

@@ -2,10 +2,6 @@
 #define TIMEIO_H
 
 
-#include <stdio.h>
-#include <ctype.h>
-
-
 Choice Start ()
 {
 	Time T;
@@ -82,7 +78,7 @@ void GetPeriod (int* Period, int Formate, Time T)
 }
 
 
-void GetTime (Time* T, int Formate, int Period)
+void GetTime (Time* T, int Formate, int *Period)
 {
 	printf("\tInput Time\n");
 	printf("\n");
@@ -100,7 +96,7 @@ void GetTime (Time* T, int Formate, int Period)
 	
 	if(Formate == 2)
 	{
-		GetPeriod (&Period, Formate, *T);
+		GetPeriod (Period, Formate, *T);
 	}
 	
 	printf("\n");

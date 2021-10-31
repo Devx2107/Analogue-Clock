@@ -14,6 +14,8 @@ int main()
 	system("pause");
 	system("cls");
 	
+	int Formate = 1, Period = 0;
+	Time T;
 	Point Center;
 	char Ans;
 	
@@ -29,7 +31,7 @@ int main()
 		printf("\n");
 		printf("\tGreat User ! Press Any Key Any Time To Pause The Clock !\n");
 		
-		LiveClock(Center, Initiate(), DrawHands (Center, Initiate()));
+		LiveClock(Center, Initiate(), DrawHands (Center, Initiate(), Period), Formate, &Period);
 		
 		printf("\n");
 		printf("\tDo You Want To Continue With Custom Time? (Y/N) --> ");
@@ -61,9 +63,6 @@ int main()
 	
 	printf("\n\n");	
 	
-	int Formate, Period = 0;
-	Time T;
-	
 	GetFormate (&Formate);
 	printf("\n");
 	
@@ -74,7 +73,7 @@ int main()
 			system("cls");
 			
 			IfValidFormate (Formate);
-			GetTime(&T, Formate, Period);
+			GetTime(&T, Formate, &Period);
 			
 			break;
 		}
@@ -84,7 +83,7 @@ int main()
 			system("cls");
 			
 			IfValidFormate (Formate);
-			GetTime(&T, Formate, Period);
+			GetTime(&T, Formate, &Period);
 			
 			break;
 		}
@@ -96,7 +95,7 @@ int main()
 	printf("\n");
 	printf("\tGreat User ! Press Any Key Any Time To Close The Program !\n");
 	
-	LiveClock(Center, T, DrawHands (Center, T));
+	LiveClock(Center, T, DrawHands (Center, T, Period), Formate, &Period);
 	
 	getch();
 	closegraph();

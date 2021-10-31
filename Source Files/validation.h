@@ -2,9 +2,6 @@
 #define VALIDATION_H
 
 
-#include <stdio.h>
-
-
 void IfInvalidFormate (int *Formate)
 {
 	printf("\n\t");
