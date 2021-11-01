@@ -1,6 +1,27 @@
 #ifndef TIMEIO_H
 #define TIMEIO_H
 
+#include "clock.h"
+#include "validation.h"
+
+
+Time Initiate ()
+{
+	time_t t;
+    struct tm* CurrentTime;
+
+    t = time(NULL);
+    CurrentTime = localtime(&t);
+    
+    Time T;
+    
+    T.Hour = CurrentTime->tm_hour;
+    T.Minute = CurrentTime->tm_min;
+    T.Second = CurrentTime->tm_sec;
+  
+    return T;
+}
+
 
 Choice Start ()
 {
@@ -52,6 +73,8 @@ void GetFormate (int* Formate)
 	
 	printf("\n\t--> ");
 	scanf("%d", Formate);
+	
+	fflush(stdin);
 }
 
 
@@ -60,7 +83,8 @@ void GetPeriod (int* Period, int Formate, Time T)
 	printf("\t1. AM\t2. PM\n");
 	
 	printf("\n\t--> ");
-	scanf("%d", Period);			
+	scanf("%d", Period);
+	fflush(stdin);			
 	
 	while(1)
 	{
@@ -85,19 +109,35 @@ void GetTime (Time* T, int Formate, int *Period)
 	
 	printf("\tHH --> ");
 	scanf("%d", &(T->Hour));
+	fflush(stdin);
 	
 	printf("\tMM --> ");
 	scanf("%d", &(T->Minute));
+	fflush(stdin);
 	
 	printf("\tSS --> ");
 	scanf("%d", &(T->Second));
+	fflush(stdin);
 	
 	printf("\n");
 	
-	if(Formate == 2)
+	if(Formate==1)
 	{
-		GetPeriod (Period, Formate, *T);
+		T->Hour %=24;
+		T->Minute %=60;
+		T->Second %=60;
 	}
+	
+	else if(Formate == 2)
+	{
+		T->Hour %=12;
+		T->Minute %=60;
+		T->Second %=60;
+		if (!T->Hour){
+			T->Hour=12;
+		}
+		GetPeriod (Period, Formate, *T);
+	} 
 	
 	printf("\n");
 	printf("\tTime Entered Successfully !\n\t");

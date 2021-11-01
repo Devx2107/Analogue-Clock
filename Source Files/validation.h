@@ -19,6 +19,7 @@ void IfInvalidFormate (int *Formate)
 	
 	printf("\n\t--> ");
 	scanf("%d", Formate);
+	fflush(stdin);
 	
 	printf("\n");
 }
@@ -57,6 +58,7 @@ void IfInvalidPeriod (Time T, int Formate, int *Period)
 
 	printf("\t--> ");
 	scanf("%d", Period);
+	fflush(stdin);
 	
 	printf("\n");
 }
