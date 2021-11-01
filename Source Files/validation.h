@@ -107,11 +107,14 @@ void IfValidPeriod (Time T, int Formate, int Period)
 	
 	printf("\n");
 	
-	printf("\t1. AM\t2. PM\n");
-	printf("\n");
+	if(Formate == 2)
+	{
+		printf("\t1. AM\t2. PM\n");
+		printf("\n");
 
-	printf("\t--> %d\n", Period);
-	printf("\n");
+		printf("\t--> %d\n", Period);
+		printf("\n");
+	}
 }
 
 

@@ -4,6 +4,7 @@
 
 #include <graphics.h>
 #include <time.h>
+#include <math.h>
 #include "timeio.h"
 #include "structure.h"
 
@@ -138,10 +139,6 @@ void DigitalClock (Time T, int Period)
 	
 	outtext(DigitalTime);
 }
-
-
-
-
 
 Hand DrawHands (Point Center, Time T, int Period)
 {	
@@ -288,16 +285,17 @@ void LiveClock (Point Center, Time T, Hand ClockHands, int Formate, int *Period)
 
 void MainDriver()
 {
-    int gm = DETECT, gd;
+    system("pause");
+	
+	int gm = DETECT, gd;
 	
 	initgraph(&gm, &gd, (char *)"");
 	cleardevice();
-	
-	system("pause");
+
 	system("cls");
 	
 	int Formate = 1, Period = 0;
-	Time T=Initiate();
+	Time T;
 	Point Center;
 	char Ans;
 	
@@ -313,7 +311,7 @@ void MainDriver()
 		printf("\n");
 		printf("\tGreat User ! Press Any Key Any Time To Pause The Clock !\n");
 		
-		LiveClock(Center, T, DrawHands (Center, T, Period), Formate, &Period);
+		LiveClock(Center, Initiate(), DrawHands (Center, Initiate(), Period), Formate, &Period);
 		
 		printf("\n");
 		printf("\tDo You Want To Continue With Custom Time? (Y/N) --> ");

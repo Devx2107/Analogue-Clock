@@ -80,6 +80,14 @@ void GetFormate (int* Formate)
 
 void GetPeriod (int* Period, int Formate, Time T)
 {
+	if(Formate != 2)
+	{
+		system("cls");
+		IfValidPeriod (T, Formate, *Period);
+	
+		return;
+	}
+	
 	printf("\t1. AM\t2. PM\n");
 	
 	printf("\n\t--> ");
@@ -108,41 +116,55 @@ void GetTime (Time* T, int Formate, int *Period)
 	printf("\n");
 	
 	printf("\tHH --> ");
-	scanf("%d", &(T->Hour));
+	if((scanf("%d", &(T->Hour)) != 1))
+	{
+        *T = Initiate();
+	}
+	
 	fflush(stdin);
 	
 	printf("\tMM --> ");
-	scanf("%d", &(T->Minute));
+	if((scanf("%d", &(T->Minute)) != 1))
+	{
+        *T = Initiate();
+	}
+	
 	fflush(stdin);
 	
 	printf("\tSS --> ");
-	scanf("%d", &(T->Second));
+	if((scanf("%d", &(T->Second)) != 1))
+	{
+        *T = Initiate();
+	}
+	
 	fflush(stdin);
 	
 	printf("\n");
 	
-	if(Formate==1)
-	{
-		T->Hour %=24;
-		T->Minute %=60;
-		T->Second %=60;
+	if(Formate == 1)
+	{		
+		T->Hour %= 24;
+		T->Minute %= 60;
+		T->Second %= 60;
+		
+		GetPeriod (Period, Formate, *T);
 	}
-	
 	else if(Formate == 2)
 	{
-		T->Hour %=12;
-		T->Minute %=60;
-		T->Second %=60;
-		if (!T->Hour){
-			T->Hour=12;
+		T->Hour %= 12;
+		T->Minute %= 60;
+		T->Second %= 60;
+		
+		if (!T->Hour)
+		{
+			T->Hour = 12;
 		}
+		
 		GetPeriod (Period, Formate, *T);
 	} 
 	
 	printf("\n");
 	printf("\tTime Entered Successfully !\n\t");
-	
-	system("pause");
 }
 
 
