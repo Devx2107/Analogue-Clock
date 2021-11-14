@@ -85,6 +85,41 @@ void DrawClock (Point Center, int Call)
 }
 
 
+int Start ()
+{
+	Time T;
+	char Ans;
+	
+	T = Initiate();
+	
+	printf("\n\t");
+	printf("!..... Analogue Clock..... !");
+	
+	printf("\n\n");
+	
+	printf("\tWelcome User !\n");
+	printf("\n");
+	
+	printf("\tDo You Want To Continue With System Time? (Y/N) --> ");
+	scanf(" %c", &Ans);
+	
+	if(toupper(Ans) == 'Y')
+	{
+		fflush(stdin);
+		
+		printf("\n\tCurrent Time: %02d:%02d:%02d\n", T.Hour, T.Minute, T.Second);
+		printf("\n");
+	
+		return 1;
+	}
+	else
+	{
+		fflush(stdin);
+		return 0;
+	}
+}
+
+
 int SwapPeriod (int Period)
 {
 	if(Period == 1)

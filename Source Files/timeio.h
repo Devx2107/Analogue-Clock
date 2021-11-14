@@ -2,7 +2,7 @@
 #define TIMEIO_H
 
 #include "clock.h"
-#include "validation.h"
+#include "structure.h"
 
 
 Time Initiate ()
@@ -23,41 +23,119 @@ Time Initiate ()
 }
 
 
-Choice Start ()
+void IfInvalidFormate (int *Formate)
 {
-	Time T;
-	Choice Ch;
-	char Ans;
-	
-	T = Initiate();
-	
 	printf("\n\t");
 	printf("!..... Analogue Clock..... !");
 	
 	printf("\n\n");
 	
-	printf("\tWelcome User !\n");
+	printf("\tTime Formates:\n");
 	printf("\n");
 	
-	printf("\tDo You Want To Continue With System Time? (Y/N) --> ");
-	scanf(" %c", &Ans);
+	printf("\t1. 24 Hour Formate\n");
+	printf("\t2. 12 Hour Formate\n");
 	
-	if(toupper(Ans) == 'Y')
+	printf("\n\tInvalid Selection ! Select valid time formate:");
+	
+	printf("\n\t--> ");
+	scanf("%d", Formate);
+	fflush(stdin);
+	
+	printf("\n");
+}
+
+
+void IfInvalidPeriod (Time T, int Formate, int *Period)
+{
+	printf("\n\t");
+	printf("!..... Analogue Clock..... !");
+	
+	printf("\n\n");
+	
+	printf("\tTime Formates:\n");
+	printf("\n");
+	
+	printf("\t1. 24 Hour Formate\n");
+	printf("\t2. 12 Hour Formate\n");
+	
+	printf("\n\t--> %d\n", Formate);
+	
+	printf("\n");
+	
+	printf("\tInput Time\n");
+	printf("\n");
+	
+	printf("\tHH --> %02d\n", T.Hour);
+	printf("\tMM --> %02d\n", T.Minute);
+	printf("\tSS --> %02d\n", T.Second);
+	
+	printf("\n");
+	
+	printf("\t1. AM\t2. PM\n");
+	
+	printf("\n\tInvalid Selection ! Select Valid Option:");
+	printf("\n");
+
+	printf("\t--> ");
+	scanf("%d", Period);
+	fflush(stdin);
+	
+	printf("\n");
+}
+
+
+void IfValidFormate (int Formate)
+{
+	printf("\n\t");
+	printf("!..... Analogue Clock..... !");
+	
+	printf("\n\n");
+	
+	printf("\tTime Formates:\n");
+	printf("\n");
+	
+	printf("\t1. 24 Hour Formate\n");
+	printf("\t2. 12 Hour Formate\n");
+	
+	printf("\n\t--> %d\n", Formate);
+	printf("\n");
+}
+
+
+void IfValidPeriod (Time T, int Formate, int Period)
+{
+	printf("\n\t");
+	printf("!..... Analogue Clock..... !");
+	
+	printf("\n\n");
+	
+	printf("\tTime Formates:\n");
+	printf("\n");
+	
+	printf("\t1. 24 Hour Formate\n");
+	printf("\t2. 12 Hour Formate\n");
+	
+	printf("\n\t--> %d\n", Formate);
+	printf("\n");
+	
+	printf("\tInput Time\n");
+	printf("\n");
+	
+	printf("\tHH --> %02d\n", T.Hour);
+	printf("\tMM --> %02d\n", T.Minute);
+	printf("\tSS --> %02d\n", T.Second);
+	
+	printf("\n");
+	
+	if(Formate == 2)
 	{
-		fflush(stdin);
-		
-		printf("\n\tCurrent Time: %02d:%02d:%02d\n", T.Hour, T.Minute, T.Second);
+		printf("\t1. AM\t2. PM\n");
 		printf("\n");
-	
-		Ch = Y;
+
+		printf("\t--> %d\n", Period);
+		printf("\n");
 	}
-	else
-	{
-		fflush(stdin);
-		Ch = N;
-	}
-	
-	return Ch;
 }
 
 

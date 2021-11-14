@@ -12,13 +12,13 @@ CursorRow=1
 TopLine=1
 LeftChar=1
 [Editor_2]
-CursorCol=3
-CursorRow=37
-TopLine=20
+CursorCol=1
+CursorRow=10
+TopLine=1
 LeftChar=1
 [Editor_3]
 CursorCol=1
-CursorRow=8
+CursorRow=5
 TopLine=1
 LeftChar=1
 [Editor_4]

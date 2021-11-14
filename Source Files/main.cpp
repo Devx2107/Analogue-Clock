@@ -1,7 +1,4 @@
-#include "structure.h"
-#include "enum.h"
-#include "headers.h"
-#include "functions.h"
+#include "clock.h"
 
 
 int main()
